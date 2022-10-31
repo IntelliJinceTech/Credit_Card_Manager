@@ -3,16 +3,17 @@ package com.cjin.CreditCardManager.account;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Customer {
     private @Id @GeneratedValue Long id;
     private String name;
-    private String creditRating;
+    private int creditRating;
 
     Customer() {}
 
-    public Customer(String name, String creditRating) {
+    public Customer(String name, int creditRating) {
         this.name = name;
         this.creditRating = creditRating;
     }
@@ -33,11 +34,11 @@ public class Customer {
         this.name = name;
     }
 
-    public String getCreditRating() {
+    public int getCreditRating() {
         return creditRating;
     }
 
-    public void setCreditRating(String creditRating) {
+    public void setCreditRating(int creditRating) {
         this.creditRating = creditRating;
     }
 
@@ -48,16 +49,16 @@ public class Customer {
 
         Customer customer = (Customer) o;
 
-        if (!id.equals(customer.id)) return false;
-        if (!name.equals(customer.name)) return false;
-        return creditRating.equals(customer.creditRating);
+        if (creditRating != customer.creditRating) return false;
+        if (!Objects.equals(id, customer.id)) return false;
+        return Objects.equals(name, customer.name);
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + name.hashCode();
-        result = 31 * result + creditRating.hashCode();
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + creditRating;
         return result;
     }
 
@@ -66,7 +67,7 @@ public class Customer {
         return "Customer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", creditRating='" + creditRating + '\'' +
+                ", creditRating=" + creditRating +
                 '}';
     }
 }
