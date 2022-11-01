@@ -15,18 +15,12 @@ public class LoadDatabase {
     private final static Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
     @Bean
-    CommandLineRunner initDatabase(CreditCardRepository repository) {
+    CommandLineRunner initDatabase(CreditCardRepository cCRepository,CustomerRepository customerRepository) {
         return args -> {
-            log.info("Preloading " + repository.save(new CreditCardAccount("Sapphire Reserve", "Travel","Chase" )));
-            log.info("Preloading " + repository.save(new CreditCardAccount("Platinum", "Travel","American Express")));
-        };
-    }
-
-    @Bean
-    CommandLineRunner initDatabase(CustomerRepository repository) {
-        return args -> {
-            log.info("Preloading " + repository.save(new Customer("James Conroy", 800 )));
-            log.info("Preloading " + repository.save(new Customer("Steve Ford",650 )));
+            log.info("Preloading " + cCRepository.save(new CreditCardAccount("Sapphire Reserve", "Travel","Chase" )));
+            log.info("Preloading " + cCRepository.save(new CreditCardAccount("Platinum", "Travel","American Express")));
+            log.info("Preloading " + customerRepository.save(new Customer("James Conroy", 800 )));
+            log.info("Preloading " + customerRepository.save(new Customer("Steve Ford",650 )));
         };
     }
 }
